@@ -8,24 +8,47 @@ import java.util.List;
  */
 public class Bank {
 
+    public static final String regexZero = " _ | ||_|";
+
+    public static final String regexOne = "     |  |";
+
+    public static final String regexTwo = " _  _||_ ";
+
+    public static final String regexThree = " _  _| _|";
+
+    public static final String regexFour = "   |_|  |";
+
+    public static final String regexFive = " _ |_  _|";
+
+    public static final String regexSix = " _ |_ |_|";
+
+    public static final String regexSeven = " _   |  |";
+
+    public static final String regexEight = " _ |_||_|";
+
+    public static final String regexNine = " _ |_| _|";
+
     private Map<String, Integer> stores;
 
     public Bank() {
         initializeMap();
     }
 
+    /**
+     * This Method initialize the regex and add into collection Map
+     */
     private void initializeMap() {
-        stores = new HashMap<>();
-        stores.put(" _ | ||_|", 0);
-        stores.put("     |  |", 1);
-        stores.put(" _  _||_ ", 2);
-        stores.put(" _  _| _|", 3);
-        stores.put("   |_|  |", 4);
-        stores.put(" _ |_  _|", 5);
-        stores.put(" _ |_ |_|", 6);
-        stores.put(" _   |  |", 7);
-        stores.put(" _ |_||_|", 8);
-        stores.put(" _ |_| _|", 9);
+        stores = new HashMap<String, Integer>();
+        stores.put(regexZero, 0);
+        stores.put(regexOne, 1);
+        stores.put(regexTwo, 2);
+        stores.put(regexThree, 3);
+        stores.put(regexFour, 4);
+        stores.put(regexFive, 5);
+        stores.put(regexSix, 6);
+        stores.put(regexSeven, 7);
+        stores.put(regexEight, 8);
+        stores.put(regexNine, 9);
     }
 
     public List<String> readEntry(String numberString) {
