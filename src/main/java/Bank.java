@@ -8,37 +8,36 @@ import java.util.List;
  */
 public class Bank {
 
-    public static final String regexZero = " _ | ||_|";
+    private static final String regexZero = " _ | ||_|";
 
-    public static final String regexOne = "     |  |";
+    private static final String regexOne = "     |  |";
 
-    public static final String regexTwo = " _  _||_ ";
+    private static final String regexTwo = " _  _||_ ";
 
-    public static final String regexThree = " _  _| _|";
+    private static final String regexThree = " _  _| _|";
 
-    public static final String regexFour = "   |_|  |";
+    private static final String regexFour = "   |_|  |";
 
-    public static final String regexFive = " _ |_  _|";
+    private static final String regexFive = " _ |_  _|";
 
-    public static final String regexSix = " _ |_ |_|";
+    private static final String regexSix = " _ |_ |_|";
 
-    public static final String regexSeven = " _   |  |";
+    private static final String regexSeven = " _   |  |";
 
-    public static final String regexEight = " _ |_||_|";
+    private static final String regexEight = " _ |_||_|";
 
-    public static final String regexNine = " _ |_| _|";
+    private static final String regexNine = " _ |_| _|";
 
-    private Map<String, Integer> stores;
+    private static final String QUESTION = "?";
 
-    public Bank() {
-        initializeMap();
-    }
+    private static final String STRING_ERROR = "Bank.java";
 
-    /**
-     * This Method initialize the regex and add into collection Map
-     */
-    private void initializeMap() {
-        stores = new HashMap<String, Integer>();
+    private static final String STRING_ILLEGAL = "ILL";
+
+    private static final String TARGET = "-1";
+
+    private static final Map<String, Integer> stores = new HashMap<>();
+    static {
         stores.put(regexZero, 0);
         stores.put(regexOne, 1);
         stores.put(regexTwo, 2);
@@ -51,6 +50,12 @@ public class Bank {
         stores.put(regexNine, 9);
     }
 
+    /**
+     * This Method convert in a list a string send with lines and pipes.
+     *
+     * @param numberString
+     * @return List the string numbers
+     */
     public List<String> readEntry(String numberString) {
         String line1 = numberString.substring(0, 27);
         String line2 = numberString.substring(27, 54);
@@ -65,14 +70,27 @@ public class Bank {
 
     }
 
+    /**
+     * This Method convert the read Number to String Number
+     *
+     * @param values the String the values is lines and pipes
+     * @return Number in string
+     */
     public String convertReadNumberToStringNumber(List<String> values) {
-        StringBuilder result =  new StringBuilder();
+        StringBuilder result = new StringBuilder();
         for (String value : values) {
             result.append(convertStringNumberToIntNumber(value));
         }
-        return result.toString().replace("-1", "?");
+        return result.toString().replace(TARGET, QUESTION);
     }
 
+    /**
+     *This method convert string a number
+     *
+     * @param number
+     * @return int a number
+     * return -1 when not find a regex a numbers
+     */
     public int convertStringNumberToIntNumber(String number) {
         for (Map.Entry<String, Integer> value : stores.entrySet()) {
             if (value.getKey().equalsIgnoreCase(number)) {
@@ -82,20 +100,36 @@ public class Bank {
         return -1;
     }
 
+    /**
+     *This method give a format a number
+     * ########?ILL -> when the number reading illegal
+     * #########ERR -> When the number not is mod the eleven
+     * ######### -> When a number is correct not add nothings
+     *
+     * @param numberString
+     * @return String whit format
+     */
     public String formatAccountNumbers(String numberString) {
-        StringBuilder result =  new StringBuilder();
+        StringBuilder result = new StringBuilder();
         result.append(numberString);
-        if (!numberString.contains("?")) {
+        if (!numberString.contains(QUESTION)) {
             if (!(modNumber(numberString) % 11 == 0)) {
-                result.append("ERR");
+                result.append(" ");
+                result.append(STRING_ERROR);
             }
         } else {
-            result.append("ILL");
+            result.append(STRING_ILLEGAL);
         }
         return result.toString();
     }
 
-    public long modNumber(String numberString) {
+    /**
+     *This Method calculate the mode that numberString
+     *
+     * @param numberString
+     * @return log number
+     */
+    private long modNumber(String numberString) {
         final char[] chars = numberString.toCharArray();
         int add = 2;
         long result = 1;
