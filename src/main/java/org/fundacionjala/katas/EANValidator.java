@@ -5,10 +5,10 @@ package org.fundacionjala.katas;
  */
 public class EANValidator {
 
-    public static final String REGEX_BLANK = "";
-    public static final int INT_TEN = 10;
-    public static final int INT_ZERO = 0;
-    public static final int ELEMENT_POSITION_12 = 12;
+    private static final String REGEX_BLANK = "";
+    private static final int INT_TEN = 10;
+    private static final int INT_ZERO = 0;
+    private static final int ELEMENT_POSITION_12 = 12;
 
     public static boolean validate(String number) {
         String[] listElements = number.split(REGEX_BLANK);
